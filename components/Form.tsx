@@ -1,6 +1,9 @@
 "use client"
 
 import { use, useEffect, useState } from "react";
+import PasswordStrengthMeter from "./password-strength-meter";
+import PasswordStrengthBar from "react-password-strength-bar";
+import PasswordMessage from "./password-message";
 
 
 const Form = () => {
@@ -32,6 +35,7 @@ const Form = () => {
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Name"
         />
+        <PasswordMessage password={password} />
         <input
           className="p-2 rounded-xl mb-5 outline-sm"
           type={visible ? "text" : "password"}
@@ -39,24 +43,29 @@ const Form = () => {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
+        <div className="flex items-center justify-around">
+          <button
+            onClick={toggleVisibility}
+            className="w-auto bg-black text-white px-16 py-2 border border-transparent font-semibold hover:opacity-75 transition rounded-xl mb-4"
+          >
+            {!visible ? "Show" : "Hide"}
+          </button>
+          <button
+            onClick={toggleCLear}
+            className="w-auto bg-black text-white px-16 py-2 border border-transparent font-semibold hover:opacity-75 transition rounded-xl mb-4"
+          >
+            Clear
+          </button>
+        </div>
         <button
-          onClick={toggleVisibility}
           className="w-auto bg-black text-white px-5 py-2 border border-transparent font-semibold hover:opacity-75 transition rounded-xl mb-4"
-        >
-          Show
-        </button>
-        <button
-          onClick={toggleCLear}
-          className="w-auto bg-black text-white px-5 py-2 border border-transparent font-semibold hover:opacity-75 transition rounded-xl mb-4"
-        >
-          Clear
-        </button>
-        <button
-          className="w-auto bg-black text-white px-5 py-2 border border-transparent font-semibold hover:opacity-75 transition rounded-xl"
           type="submit"
         >
           Submit
         </button>
+
+        <PasswordStrengthMeter password={password} />
+        <PasswordStrengthBar password={password} />
       </form>
     </div>
   );
